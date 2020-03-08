@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -15,6 +17,7 @@ class QuizApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
+        a
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -34,7 +37,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   int trueCount = 0;
-  int n = quizBrain.getQuestionLength();
+  int questionLength = quizBrain.getQuestionLength();
+  int currentQuestion = 1;
 
   void checkAnswer(String userPickedAnswer) {
     String correctAnswer = quizBrain.getCorrectAnswer();
@@ -62,16 +66,20 @@ class _QuizPageState extends State<QuizPage> {
         Alert(
           context: context,
           title: 'Finished!',
-          desc: '$n問中$trueCount問正解！',
+          desc: '$questionLength問中$trueCount問正解！',
         ).show();
 
         trueCount = 0;
 
+        currentQuestion = 0;
+
         quizBrain.reset();
 
         scoreKeeper = [];
+      } else {
+        currentQuestion++;
+        quizBrain.nextQuestion();
       }
-      quizBrain.nextQuestion();
     });
   }
 
@@ -82,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
-          flex: 21,
+          flex: 18,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
@@ -665,7 +673,7 @@ class _QuizPageState extends State<QuizPage> {
               SizedBox(
                 width: kSizedBoxWidth,
                 height: kSizedBoxHeight,
-                child: KeyboardButton(
+                child: CtrlButton(
                   symbol: '英',
                   tap: () {
                     checkAnswer('英');
@@ -685,7 +693,7 @@ class _QuizPageState extends State<QuizPage> {
               SizedBox(
                 width: kSizedBoxWidth,
                 height: kSizedBoxHeight,
-                child: KeyboardButton(
+                child: CtrlButton(
                   symbol: '日',
                   tap: () {
                     checkAnswer('日');
@@ -738,8 +746,35 @@ class _QuizPageState extends State<QuizPage> {
             ],
           ),
         ),
-        Row(
-          children: scoreKeeper,
+        Container(
+          height: 100.0,
+          width: double.infinity,
+          color: Colors.red,
+          padding: EdgeInsets.all(10.0),
+          margin: EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(
+                Icons.edit,
+                size: 50.0,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: 20.0,
+              ),
+              Text(
+                '$currentQuestion/$questionLength',
+                style: TextStyle(
+                  fontSize: 40.0,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                width: 70.0,
+              ),
+            ],
+          ),
         )
       ],
     );
