@@ -6,6 +6,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 import 'keyboard.dart';
 import 'constants.dart';
+import 'results.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -17,7 +18,15 @@ class QuizApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
-        a
+        appBar: AppBar(
+          title: Text(
+            'Quiz Mode',
+            style: TextStyle(
+              fontSize: 40.0,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -39,6 +48,9 @@ class _QuizPageState extends State<QuizPage> {
   int trueCount = 0;
   int questionLength = quizBrain.getQuestionLength();
   int currentQuestion = 1;
+  String currentQuestionText = quizBrain.getQuestionText();
+  List<Widget> resultText = [];
+  List<Icon> resultScore = [];
 
   void checkAnswer(String userPickedAnswer) {
     String correctAnswer = quizBrain.getCorrectAnswer();
@@ -48,26 +60,65 @@ class _QuizPageState extends State<QuizPage> {
 //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
 
       if (userPickedAnswer == correctAnswer) {
-//        scoreKeeper.add(Icon(
-//          Icons.check,
-//          color: Colors.green,
-//        ));
+        resultText.add(
+          Text(
+            '$currentQuestionText',
+          ),
+        );
+        resultScore.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
         trueCount++;
       } else {
-//        scoreKeeper.add(
-//          Icon(
-//            Icons.close,
-//            color: Colors.red,
-//          ),
-//        );
+        resultText.add(
+          Text(
+            '$currentQuestionText',
+          ),
+        );
+        resultScore.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
       }
 
       if (quizBrain.isFinished() == true) {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (BuildContext context) =>
+                ResultsPage(resultText, resultScore),
+          ),
+        );
         Alert(
           context: context,
           title: 'Finished!',
           desc: '$questionLength問中$trueCount問正解！',
+//          buttons: [
+//            DialogButton(
+//              child: Text(
+//                "$resultScore",
+//                style: TextStyle(color: Colors.white, fontSize: 20),
+//              ),
+//              onPressed: () => Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                  builder: (context) {
+//                    return ResultsPage();
+//                  },
+//                ),
+//              ),
+//              width: 120,
+//            )
+//          ],
         ).show();
+
+        print(resultScore);
+        print(resultText);
 
         trueCount = 0;
 
@@ -79,6 +130,7 @@ class _QuizPageState extends State<QuizPage> {
       } else {
         currentQuestion++;
         quizBrain.nextQuestion();
+        currentQuestionText = quizBrain.getQuestionText();
       }
     });
   }
@@ -90,17 +142,69 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
-          flex: 18,
+          flex: 16,
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: Text(
-                quizBrain.getQuestionText(),
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    quizBrain.getQuestionText(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 80.0,
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          '⌘',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 60.0,
+                          ),
+                        ),
+                        Text(
+                          '+',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 60.0,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 60.0,
+                          height: 60.0,
+                          child: Container(
+                            color: Colors.white,
+                            child: Center(
+                              child: Text(
+                                '？',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
