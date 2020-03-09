@@ -7,6 +7,7 @@ import 'quiz_brain.dart';
 import 'keyboard.dart';
 import 'constants.dart';
 import 'results.dart';
+import 'package:flutter/animation.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -16,6 +17,7 @@ class QuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         appBar: AppBar(
@@ -43,14 +45,49 @@ class QuizPage extends StatefulWidget {
   _QuizPageState createState() => _QuizPageState();
 }
 
-class _QuizPageState extends State<QuizPage> {
-  List<Icon> scoreKeeper = [];
+class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
+//  AnimationController _controller;
+//  Animation<double> _animation;
+//
+//  initState() {
+//    super.initState();
+//    _controller = AnimationController(
+//        duration: const Duration(milliseconds: 2000), vsync: this, value: 0.1);
+//    _animation =
+//        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+//
+//    _controller.forward();
+//  }
+//
+//  dispose() {
+//    _controller.dispose();
+//    super.dispose();
+//  }
+
   int trueCount = 0;
   int questionLength = quizBrain.getQuestionLength();
   int currentQuestion = 1;
   String currentQuestionText = quizBrain.getQuestionText();
   List<Widget> resultText = [];
   List<Icon> resultScore = [];
+
+//  bool isChecking = false;
+//
+//  double itemSize = 100.0;
+//
+//  Widget popUp() {
+//    return Container(
+//      child: ScaleTransition(
+//        scale: _animation,
+//        alignment: Alignment.center,
+//        child: Icon(
+//          Icons.trip_origin,
+//          size: itemSize,
+//          color: Colors.red,
+//        ),
+//      ),
+//    );
+//  }
 
   void checkAnswer(String userPickedAnswer) {
     String correctAnswer = quizBrain.getCorrectAnswer();
@@ -72,6 +109,19 @@ class _QuizPageState extends State<QuizPage> {
           ),
         );
         trueCount++;
+        Alert(
+          context: context,
+          title: "正解！",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "次の問題へ",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ).show();
       } else {
         resultText.add(
           Text(
@@ -84,49 +134,40 @@ class _QuizPageState extends State<QuizPage> {
             color: Colors.red,
           ),
         );
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: "残念！",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "次の問題へ",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        ).show();
       }
 
       if (quizBrain.isFinished() == true) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           new MaterialPageRoute(
             builder: (BuildContext context) =>
-                ResultsPage(resultText, resultScore),
+                ResultsPage(resultText, resultScore, trueCount, questionLength),
           ),
         );
+
         Alert(
           context: context,
           title: 'Finished!',
           desc: '$questionLength問中$trueCount問正解！',
-//          buttons: [
-//            DialogButton(
-//              child: Text(
-//                "$resultScore",
-//                style: TextStyle(color: Colors.white, fontSize: 20),
-//              ),
-//              onPressed: () => Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                  builder: (context) {
-//                    return ResultsPage();
-//                  },
-//                ),
-//              ),
-//              width: 120,
-//            )
-//          ],
         ).show();
-
-        print(resultScore);
-        print(resultText);
-
-        trueCount = 0;
 
         currentQuestion = 0;
 
         quizBrain.reset();
-
-        scoreKeeper = [];
       } else {
         currentQuestion++;
         quizBrain.nextQuestion();
@@ -163,6 +204,8 @@ class _QuizPageState extends State<QuizPage> {
                   ),
                   SizedBox(
                     height: 80.0,
+//                    width: 80.0,
+//                    child: (isChecking ? popUp() : Container()),
                   ),
                   Container(
                     child: Row(
