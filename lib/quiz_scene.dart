@@ -13,6 +13,7 @@ class QuizScene extends StatelessWidget {
 
   QuizScene(String course) {
     this.course = course;
+    quizBrain.setQuestions(this.course);
   }
 
   @override
@@ -39,17 +40,22 @@ class QuizScene extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return new AlertDialog(
+                  return AlertDialog(
                     content: kAlertContainer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                     actions: <Widget>[
-                      new FlatButton(
-                        child: const Text('いいえ'),
+                      FlatButton(
+                        child: const Text('いいえ',
+                            style: TextStyle(color: Colors.black45)),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
-                      new FlatButton(
-                        child: const Text('はい'),
+                      FlatButton(
+                        child: const Text('はい',
+                            style: TextStyle(color: Colors.black45)),
                         onPressed: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -75,8 +81,8 @@ class QuizScene extends StatelessWidget {
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
             colors: [
-              const Color(0xffE040FB), //透明度
-              const Color(0xff42A5F5), //透明度
+              const Color(0xffe4a972), //透明度
+              const Color(0xff9941d8), //透明度
             ],
           ),
         ),
@@ -111,18 +117,20 @@ class _QuizPageState extends State<QuizPage> {
         resultText.add(
           Text(
             '$currentQuestionText',
+            style: TextStyle(color: Colors.white),
           ),
         );
         resultScore.add(
           Icon(
             Icons.check,
-            color: Colors.green,
+            color: Colors.lightBlue,
           ),
         );
         trueCount++;
         resultAnswer.add(
           Text(
-            '$correctAnswer',
+            '⌘＋$correctAnswer',
+            style: TextStyle(color: Colors.white),
           ),
         );
         Alert(
@@ -130,9 +138,14 @@ class _QuizPageState extends State<QuizPage> {
           title: "正解！",
           buttons: [
             DialogButton(
+              color: Colors.deepPurpleAccent,
               child: Text(
                 "次の問題へ",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'MPLUS',
+                    fontWeight: FontWeight.w800),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -142,17 +155,19 @@ class _QuizPageState extends State<QuizPage> {
         resultText.add(
           Text(
             '$currentQuestionText',
+            style: TextStyle(color: Colors.white),
           ),
         );
         resultScore.add(
           Icon(
             Icons.close,
-            color: Colors.red,
+            color: Colors.pink,
           ),
         );
         resultAnswer.add(
           Text(
-            '$correctAnswer',
+            '⌘＋$correctAnswer',
+            style: TextStyle(color: Colors.white),
           ),
         );
         Alert(
@@ -161,9 +176,14 @@ class _QuizPageState extends State<QuizPage> {
           title: "残念！",
           buttons: [
             DialogButton(
+              color: Colors.deepPurpleAccent,
               child: Text(
                 "次の問題へ",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: 'MPLUS',
+                    fontWeight: FontWeight.w800),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -220,7 +240,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Container(
                 margin: EdgeInsets.only(top: 30.0),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black45, width: 2.0),
+                  border: Border.all(color: Colors.white, width: 2.0),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(

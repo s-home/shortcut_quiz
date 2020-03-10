@@ -2,6 +2,38 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'select_course.dart';
 
+class MemorizationBrain {
+  List cardsList = [];
+  List _basicCardsList = [
+    CardItemModel("⌘＋C", "コピーする"),
+    CardItemModel("⌘＋V", "ペーストする"),
+    CardItemModel("⌘＋S", "保存する"),
+    CardItemModel("⌘＋X", "切り取り＆コピー"),
+    CardItemModel("⌘＋A", "全選択"),
+    CardItemModel("⌘＋F", "検索"),
+    CardItemModel("⌘＋S", "保存する"),
+  ];
+
+  List _browseCardsList = [
+    CardItemModel("⌘＋R", "リロード(ページを再読み込み)する"),
+    CardItemModel("⌘＋T", "新しいタブを開く"),
+    CardItemModel("⌘＋←", "一つ前のページに戻る"),
+  ];
+
+  void setCardsList(String course) {
+    switch (course) {
+      case 'basic':
+        cardsList = _basicCardsList;
+        break;
+      case 'browse':
+        cardsList = _browseCardsList;
+        break;
+    }
+  }
+}
+
+MemorizationBrain memorizationBrain = MemorizationBrain();
+
 class CardItemModel {
   String cardTitle;
   IconData icon;
@@ -11,13 +43,19 @@ class CardItemModel {
 }
 
 class Memorization extends StatefulWidget {
+  String course = '';
+
+  Memorization(String course) {
+    this.course = course;
+    memorizationBrain.setCardsList(this.course);
+  }
   @override
   _MemorizationState createState() => new _MemorizationState();
 }
 
 class _MemorizationState extends State<Memorization>
     with TickerProviderStateMixin {
-  var appColors = [
+  List appColors = [
     Color.fromRGBO(106, 90, 203, 1.0),
     Color.fromRGBO(99, 138, 223, 1.0),
     Color.fromRGBO(111, 194, 173, 1.0),
@@ -25,18 +63,10 @@ class _MemorizationState extends State<Memorization>
     Color.fromRGBO(99, 138, 223, 1.0),
     Color.fromRGBO(111, 194, 173, 1.0)
   ];
-  var cardIndex = 0;
+  int cardIndex = 0;
   ScrollController scrollController;
   var currentColor = Color.fromRGBO(106, 90, 203, 1.0);
-  var cardsList = [
-    CardItemModel("⌘＋C", "コピーする"),
-    CardItemModel("⌘＋V", "ペーストする"),
-    CardItemModel("⌘＋S", "保存する"),
-    CardItemModel("⌘＋X", "切り取り＆コピー"),
-    CardItemModel("⌘＋A", "全選択"),
-    CardItemModel("⌘＋F", "検索"),
-    CardItemModel("⌘＋S", "保存する")
-  ];
+
   AnimationController animationController;
   ColorTween colorTween;
   CurvedAnimation curvedAnimation;
@@ -48,7 +78,7 @@ class _MemorizationState extends State<Memorization>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
         backgroundColor: currentColor,
         appBar: AppBar(
           backgroundColor: Colors.black26.withOpacity(0.3),
@@ -71,15 +101,22 @@ class _MemorizationState extends State<Memorization>
                   builder: (BuildContext context) {
                     return AlertDialog(
                       content: kAlertContainer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
                       actions: <Widget>[
                         FlatButton(
-                          child: const Text('いいえ'),
+                          child: const Text(
+                            'いいえ',
+                            style: TextStyle(color: Colors.black45),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                           },
                         ),
                         FlatButton(
-                          child: const Text('はい'),
+                          child: const Text('はい',
+                              style: TextStyle(color: Colors.black45)),
                           onPressed: () {
                             Navigator.pushAndRemoveUntil(
                                 context,
@@ -205,7 +242,7 @@ class _MemorizationState extends State<Memorization>
                                                       horizontal: 0.0,
                                                       vertical: 0.0),
                                               child: Text(
-                                                "${cardsList[position].tasksRemaining} ",
+                                                "${memorizationBrain.cardsList[position].tasksRemaining} ",
                                                 style: TextStyle(
                                                     color: Colors.white70),
                                               ),
@@ -216,7 +253,7 @@ class _MemorizationState extends State<Memorization>
                                                       horizontal: 0.0,
                                                       vertical: 0.0),
                                               child: Text(
-                                                "${cardsList[position].cardTitle}",
+                                                "${memorizationBrain.cardsList[position].cardTitle}",
                                                 style: TextStyle(
                                                     fontSize: 28.0,
                                                     color: Colors.white),

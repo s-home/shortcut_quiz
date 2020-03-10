@@ -3,11 +3,30 @@ import 'question.dart';
 class QuizBrain {
   int _questionNumber = 0;
 
-  List<Question> _questionBank = [
+  List<Question> _questionBank = [];
+
+  List<Question> _basicBank = [
     Question('コピー', 'C'),
     Question('ペースト', 'V'),
     Question('保存', 'S'),
   ];
+
+  List<Question> _browseBank = [
+    Question('リロード', 'R'),
+    Question('新規タブ', 'T'),
+    Question('一つ前のページに戻る', '←'),
+  ];
+
+  void setQuestions(String course) {
+    switch (course) {
+      case 'basic':
+        _questionBank = _basicBank;
+        break;
+      case 'browse':
+        _questionBank = _browseBank;
+        break;
+    }
+  }
 
   void nextQuestion() {
     if (_questionNumber < _questionBank.length - 1) {

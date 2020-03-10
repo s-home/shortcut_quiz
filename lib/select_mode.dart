@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'quiz_scene.dart';
+import 'package:shortcut_quiz_app/quiz_scene.dart';
+import 'memorization_page.dart';
 import 'constants.dart';
+import 'quiz_scene.dart';
 
 class SelectMode extends StatelessWidget {
   String course = '';
@@ -12,6 +14,18 @@ class SelectMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(106, 90, 203, 1.0),
+      appBar: AppBar(
+        backgroundColor: Colors.black26.withOpacity(0.3),
+        title: Text(
+          'mode select',
+          style: TextStyle(
+            fontFamily: 'BalooBhai',
+            fontSize: 30.0,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -32,7 +46,16 @@ class SelectMode extends StatelessWidget {
                   shape: StadiumBorder(
                     side: BorderSide(color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => Memorization(
+                          this.course,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               SizedBox(

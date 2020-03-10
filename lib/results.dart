@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'constants.dart';
 import 'select_course.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 class ResultsPage extends StatelessWidget {
   // 遷移前の入力値保持用
@@ -12,7 +13,6 @@ class ResultsPage extends StatelessWidget {
   int questionLength = 0;
   double doublePoints = 0.0;
   int points = 0;
-
   ResultsPage(List resultText, List resultScore, List resultAnswer,
       int trueCount, int questionLength) {
     this.resultScore = resultScore;
@@ -22,19 +22,20 @@ class ResultsPage extends StatelessWidget {
     this.questionLength = questionLength;
     double x = this.trueCount.toDouble();
     double y = this.questionLength.toDouble();
-
     doublePoints = x / y * 100;
     points = doublePoints.toInt();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      backgroundColor: Color(0xff212121),
+      appBar: GradientAppBar(
+        backgroundColorStart: const Color(0xffe4a972),
+        backgroundColorEnd: const Color(0xff9941d8),
         leading: Container(),
-        backgroundColor: Colors.black26.withOpacity(0.3),
+        //backgroundColor: Colors.black26.w0xff9941d8ithOpacity(0.3),
         title: Text(
-          'Quiz Mode',
+          'Quiz Result',
           style: TextStyle(
             fontFamily: 'BalooBhai',
             fontSize: 30.0,
@@ -50,17 +51,22 @@ class ResultsPage extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
+                  return new AlertDialog(
                     content: kAlertContainer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
                     actions: <Widget>[
-                      FlatButton(
-                        child: const Text('いいえ'),
+                      new FlatButton(
+                        child: const Text('いいえ',
+                            style: TextStyle(color: Colors.black45)),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
-                      FlatButton(
-                        child: const Text('はい'),
+                      new FlatButton(
+                        child: const Text('はい',
+                            style: TextStyle(color: Colors.black45)),
                         onPressed: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -79,20 +85,58 @@ class ResultsPage extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Text('$points点'),
+          SizedBox(
+            height: 80.0,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
+            child: Center(),
+          ),
+          Container(
+            height: 150.0,
+            width: 150.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: [
+                  Color(0xffe4a972),
+                  Color(0xff9941d8),
+                ],
+              ),
+            ),
+            child: Center(
+              child: Text(
+                '$points点',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontFamily: 'MPLUS',
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 40.0,
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: resultScore.length,
               itemBuilder: (context, int index) {
                 return Container(
-                  width: 100,
-                  height: 80,
+//                  height: 80,
                   margin:
                       EdgeInsets.only(left: 50.0, right: 50.0, bottom: 20.0),
-                  padding: EdgeInsets.only(right: 10.0),
+//                  padding: EdgeInsets.only(right: 10.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue),
+                    border: Border.all(color: Colors.white),
                     borderRadius: BorderRadius.circular(10),
+                    color: Colors.white.withOpacity(0.2),
                   ),
                   child: Center(
                     child: ListTile(

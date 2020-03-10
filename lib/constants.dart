@@ -30,13 +30,18 @@ const kSpaceButtonTextStyle = TextStyle(
 );
 const kSizedBoxWidth = 28.0;
 const kSizedBoxHeight = 28.0;
-
 final kStartTextStyle = TextStyle(
+  fontFamily: 'BalooBhai',
   color: Colors.white.withOpacity(0.8),
   fontWeight: FontWeight.w600,
   fontSize: 60.0,
 );
-
+final kJapTextStyle = TextStyle(
+  fontFamily: 'MPLUS',
+  color: Colors.white.withOpacity(0.8),
+  fontWeight: FontWeight.w600,
+  fontSize: 60.0,
+);
 final kGradientDecoration = BoxDecoration(
   border: Border.all(color: Colors.black45, width: 10.0),
   borderRadius: BorderRadius.circular(10),
@@ -44,25 +49,30 @@ final kGradientDecoration = BoxDecoration(
     begin: FractionalOffset.topLeft,
     end: FractionalOffset.bottomRight,
     colors: [
-      const Color(0xffE040FB), //透明度
-      const Color(0xff42A5F5), //透明度
+      const Color(0xff80d8ff), //透明度
+      const Color(0xffffe57f), //透明度
     ],
   ),
 );
-
 const kRaisedButtonTextStyle = TextStyle(
+  fontFamily: 'BalooBhai',
   fontSize: 30.0,
   color: Colors.white,
   fontWeight: FontWeight.w300,
 );
-
 final kAlertContainer = Container(
   height: 70.0,
   padding: EdgeInsets.only(top: 20.0),
   child: Column(
     children: <Widget>[
-      Text('コース選択へ戻ります'),
-      Text('よろしいですか？'),
+      Text(
+        'コース選択へ戻ります',
+        style: TextStyle(color: Colors.black45),
+      ),
+      Text(
+        'よろしいですか？',
+        style: TextStyle(color: Colors.black45),
+      ),
     ],
   ),
 );
