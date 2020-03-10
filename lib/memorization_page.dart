@@ -11,13 +11,24 @@ class MemorizationBrain {
     CardItemModel("⌘＋X", "切り取り＆コピー"),
     CardItemModel("⌘＋A", "全選択"),
     CardItemModel("⌘＋F", "検索"),
-    CardItemModel("⌘＋S", "保存する"),
+    CardItemModel("⌘＋tab", "開いてるアプリを切り替える"),
+    CardItemModel("⌘＋shift＋5", "範囲を指定してスクリーンショット"),
+    CardItemModel("⌘＋Z", "操作をひとつ取り消す"),
+    CardItemModel('⌘＋shift＋Z', '一つ前の操作をやり直す'),
   ];
 
   List _browseCardsList = [
     CardItemModel("⌘＋R", "リロード(ページを再読み込み)する"),
-    CardItemModel("⌘＋T", "新しいタブを開く"),
+    CardItemModel("⌘＋T", "ブラウザで新しいタブを開く"),
     CardItemModel("⌘＋←", "一つ前のページに戻る"),
+    CardItemModel("⌘＋W", "タブを閉じる"),
+    CardItemModel("⌘＋shift＋T", "閉じたタブを再度開く"),
+    CardItemModel("⌘＋↑", "ページの一番上に移動する"),
+    CardItemModel("⌘＋L", "サイト上部のリンクを選択する"),
+    CardItemModel("⌘＋N", "新規のウィンドウを開く"),
+    CardItemModel("⌘＋shift＋N", "新規のシークレットウィンドウを開く"),
+    CardItemModel("⌘＋option＋←", "左隣のタブを表示する"),
+    CardItemModel("⌘＋D", "ブックマークに追加する"),
   ];
 
   void setCardsList(String course) {

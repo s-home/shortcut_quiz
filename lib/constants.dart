@@ -42,18 +42,7 @@ final kJapTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: 60.0,
 );
-final kGradientDecoration = BoxDecoration(
-  border: Border.all(color: Colors.black45, width: 10.0),
-  borderRadius: BorderRadius.circular(10),
-  gradient: LinearGradient(
-    begin: FractionalOffset.topLeft,
-    end: FractionalOffset.bottomRight,
-    colors: [
-      const Color(0xff80d8ff), //透明度
-      const Color(0xffffe57f), //透明度
-    ],
-  ),
-);
+
 const kRaisedButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
   fontSize: 30.0,
@@ -73,6 +62,19 @@ final kAlertContainer = Container(
         'よろしいですか？',
         style: TextStyle(color: Colors.black45),
       ),
+    ],
+  ),
+);
+
+final kGradientDecoration = BoxDecoration(
+  border: Border.all(color: Colors.black45, width: 10.0),
+  borderRadius: BorderRadius.circular(10),
+  gradient: LinearGradient(
+    begin: FractionalOffset.topLeft,
+    end: FractionalOffset.bottomRight,
+    colors: [
+      const Color(0xff80d8ff), //透明度
+      const Color(0xffffe57f), //透明度
     ],
   ),
 );

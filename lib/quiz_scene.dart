@@ -104,15 +104,17 @@ class _QuizPageState extends State<QuizPage> {
   int trueCount = 0;
   int questionLength = quizBrain.getQuestionLength();
   int currentQuestion = 1;
-  String currentQuestionText = quizBrain.getQuestionText();
+  String currentQuestionText = '';
   List<Widget> resultText = [];
   List<Icon> resultScore = [];
   List<Widget> resultAnswer = [];
+
   void checkAnswer(String userPickedAnswer) {
     String correctAnswer = quizBrain.getCorrectAnswer();
     setState(() {
 //Use IF/ELSE to check if we've reached the end of the quiz. If so,
 //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
+      currentQuestionText = quizBrain.getQuestionText();
       if (userPickedAnswer == correctAnswer) {
         resultText.add(
           Text(
@@ -190,6 +192,7 @@ class _QuizPageState extends State<QuizPage> {
           ],
         ).show();
       }
+
       if (quizBrain.isFinished() == true) {
         Navigator.pushReplacement(
           context,
@@ -260,48 +263,9 @@ class _QuizPageState extends State<QuizPage> {
                       height: 80.0,
                     ),
                     Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            '⌘',
-                            style: TextStyle(
-                              fontFamily: 'MPLUS',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 60.0,
-                            ),
-                          ),
-                          Text(
-                            '+',
-                            style: TextStyle(
-                              fontFamily: 'MPLUS',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 60.0,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 60.0,
-                            height: 60.0,
-                            child: Container(
-                              color: Colors.white.withOpacity(0.3),
-                              child: Center(
-                                child: Text(
-                                  '？',
-                                  style: TextStyle(
-                                    fontFamily: 'BalooBhai',
-                                    color: Colors.white,
-                                    fontSize: 30.0,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
+                        child: (quizBrain.checkShift() == true)
+                            ? quizBrain.shiftRow
+                            : quizBrain.nonShiftRow)
                   ],
                 ),
               ),
