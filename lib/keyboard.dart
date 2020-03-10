@@ -15,9 +15,9 @@ class KeyboardButton extends StatelessWidget {
         '$symbol',
         style: kButtonTextStyle,
       ),
-      color: Colors.blue,
+      color: Colors.black26.withOpacity(0.3),
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(1.0),
+        borderRadius: new BorderRadius.circular(4.0),
       ),
       onPressed: tap,
     );
@@ -33,14 +33,14 @@ class CtrlButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      padding: EdgeInsets.all(0.0),
+      padding: EdgeInsets.only(top: 3.0),
       child: Text(
         '$symbol',
         style: kCtrlButtonTextStyle,
       ),
-      color: Colors.blue,
+      color: Colors.black26.withOpacity(0.3),
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(1.0),
+        borderRadius: new BorderRadius.circular(4.0),
       ),
       onPressed: tap,
     );
@@ -61,9 +61,32 @@ class ShiftButton extends StatelessWidget {
         '$symbol',
         style: kShiftButtonTextStyle,
       ),
-      color: Colors.blue,
+      color: Colors.black26.withOpacity(0.3),
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(1.0),
+        borderRadius: new BorderRadius.circular(4.0),
+      ),
+      onPressed: tap,
+    );
+  }
+}
+
+class JapaneseButton extends StatelessWidget {
+  JapaneseButton({@required this.symbol, this.tap});
+
+  final String symbol;
+  final Function tap;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      padding: EdgeInsets.only(bottom: 5.0),
+      child: Text(
+        '$symbol',
+        style: kShiftButtonTextStyle,
+      ),
+      color: Colors.black26.withOpacity(0.3),
+      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(4.0),
       ),
       onPressed: tap,
     );
