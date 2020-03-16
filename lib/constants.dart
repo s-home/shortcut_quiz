@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 
 const kButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
-  fontSize: 18.0,
+  fontSize: 15.0,
   height: 1.5,
   fontWeight: FontWeight.w400,
   color: Colors.white,
 );
 const kCtrlButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
-  fontSize: 15.0,
+  fontSize: 12.0,
   height: 1.1,
   fontWeight: FontWeight.w400,
   color: Colors.white,
 );
 const kShiftButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
-  fontSize: 15.0,
+  fontSize: 12.0,
   height: 1.5,
   fontWeight: FontWeight.w400,
   color: Colors.white,
 );
 const kSpaceButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
-  fontSize: 15.0,
+  fontSize: 12.0,
   height: 1.5,
   fontWeight: FontWeight.w400,
   color: Colors.white,
 );
-const kSizedBoxWidth = 28.0;
-const kSizedBoxHeight = 28.0;
+const kSizedBoxWidth = 25.0;
+const kSizedBoxHeight = 25.0;
 final kStartTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
   color: Colors.white.withOpacity(0.8),
@@ -42,7 +42,6 @@ final kJapTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: 60.0,
 );
-
 const kRaisedButtonTextStyle = TextStyle(
   fontFamily: 'BalooBhai',
   fontSize: 30.0,
@@ -65,7 +64,6 @@ final kAlertContainer = Container(
     ],
   ),
 );
-
 final kGradientDecoration = BoxDecoration(
   border: Border.all(color: Colors.black45, width: 10.0),
   borderRadius: BorderRadius.circular(10),

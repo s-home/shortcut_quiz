@@ -8,7 +8,16 @@ class StartScene extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: kGradientDecoration,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: FractionalOffset.topLeft,
+            end: FractionalOffset.bottomRight,
+            colors: [
+              const Color(0xfff50057).withOpacity(0.9), //透明度
+              const Color(0xff18ffff), //透明度
+            ],
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

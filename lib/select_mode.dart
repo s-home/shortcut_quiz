@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shortcut_quiz_app/quiz_scene.dart';
+import 'package:shortcut_quiz_app/memorization_page.dart';
+import 'quiz_scene.dart';
 import 'memorization_page.dart';
 import 'constants.dart';
-import 'quiz_scene.dart';
 
 class SelectMode extends StatelessWidget {
   String course = '';
-
   SelectMode(String course) {
     this.course = course;
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +16,7 @@ class SelectMode extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black26.withOpacity(0.3),
         title: Text(
-          'mode select',
+          'select mode',
           style: TextStyle(
             fontFamily: 'BalooBhai',
             fontSize: 30.0,
@@ -26,10 +24,22 @@ class SelectMode extends StatelessWidget {
           ),
         ),
       ),
+      extendBodyBehindAppBar: true,
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: kGradientDecoration,
+        decoration: BoxDecoration(
+          //border: Border.all(color: Colors.black45, width: 10.0),
+          //borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            begin: FractionalOffset.topLeft,
+            end: FractionalOffset.bottomRight,
+            colors: [
+              const Color(0xffffff00).withOpacity(0.9), //透明度
+              const Color(0xfff50057).withOpacity(0.7), //透明度
+            ],
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

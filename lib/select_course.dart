@@ -4,14 +4,36 @@ import 'constants.dart';
 
 class SelectCourse extends StatelessWidget {
   String course = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black26.withOpacity(0.3),
+        title: Text(
+          'Select Course',
+          style: TextStyle(
+            fontFamily: 'BalooBhai',
+            fontSize: 30.0,
+            fontWeight: FontWeight.w300,
+          ),
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: kGradientDecoration,
+        decoration: BoxDecoration(
+          //border: Border.all(color: Colors.black45, width: 10.0),
+          //borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            begin: FractionalOffset.topLeft,
+            end: FractionalOffset.bottomRight,
+            colors: [
+              const Color(0xff80d8ff), //透明度
+              const Color(0xffffe57f), //透明度
+            ],
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -77,24 +99,19 @@ class SelectCourse extends StatelessWidget {
                 height: 100.0,
                 child: RaisedButton(
                   child: Text(
-                    "- Finder -",
-                    style: kRaisedButtonTextStyle,
+                    "- ??? -",
+                    style: TextStyle(
+                      fontFamily: 'BalooBhai',
+                      fontSize: 30.0,
+                      color: Colors.white30,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                   color: Colors.white.withOpacity(0.0),
                   shape: StadiumBorder(
-                    side: BorderSide(color: Colors.white),
+                    side: BorderSide(color: Colors.white70),
                   ),
-                  onPressed: () {
-                    course = 'finder';
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => SelectMode(
-                          this.course,
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                 ),
               ),
             ],

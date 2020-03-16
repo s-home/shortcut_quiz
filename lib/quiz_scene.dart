@@ -214,8 +214,10 @@ class _QuizPageState extends State<QuizPage> {
           desc: '$questionLength問中$trueCount問正解！',
           buttons: [
             DialogButton(
+              color: Colors.deepPurple,
               child: Text(
                 "結果を確認する",
+                style: TextStyle(color: Colors.white),
               ),
               onPressed: () => Navigator.pop(context),
             )
@@ -236,7 +238,7 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
-          flex: 20,
+          flex: 15,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: SafeArea(

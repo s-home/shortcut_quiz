@@ -1,4 +1,4 @@
-package com.example.shortcut_quiz_app
+package com.freeshrimp.shortcut_quiz_app
 
 import android.support.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

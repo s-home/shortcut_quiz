@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'start_scene.dart';
 import 'select_course.dart';
 
-import 'memorization_page.dart';
-
 void main() => runApp(QuizApp());
 
 class QuizApp extends StatelessWidget {

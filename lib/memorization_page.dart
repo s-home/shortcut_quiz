@@ -23,7 +23,6 @@ class MemorizationBrain {
     CardItemModel("⌘＋←", "一つ前のページに戻る"),
     CardItemModel("⌘＋W", "タブを閉じる"),
     CardItemModel("⌘＋shift＋T", "閉じたタブを再度開く"),
-    CardItemModel("⌘＋↑", "ページの一番上に移動する"),
     CardItemModel("⌘＋L", "サイト上部のリンクを選択する"),
     CardItemModel("⌘＋N", "新規のウィンドウを開く"),
     CardItemModel("⌘＋shift＋N", "新規のシークレットウィンドウを開く"),
@@ -72,12 +71,20 @@ class _MemorizationState extends State<Memorization>
     Color.fromRGBO(111, 194, 173, 1.0),
     Color.fromRGBO(106, 90, 203, 1.0),
     Color.fromRGBO(99, 138, 223, 1.0),
+    Color.fromRGBO(111, 194, 173, 1.0),
+    Color.fromRGBO(106, 90, 203, 1.0),
+    Color.fromRGBO(99, 138, 223, 1.0),
+    Color.fromRGBO(111, 194, 173, 1.0),
+    Color.fromRGBO(106, 90, 203, 1.0),
+    Color.fromRGBO(99, 138, 223, 1.0),
+    Color.fromRGBO(111, 194, 173, 1.0),
+    Color.fromRGBO(106, 90, 203, 1.0),
+    Color.fromRGBO(99, 138, 223, 1.0),
     Color.fromRGBO(111, 194, 173, 1.0)
   ];
   int cardIndex = 0;
   ScrollController scrollController;
   var currentColor = Color.fromRGBO(106, 90, 203, 1.0);
-
   AnimationController animationController;
   ColorTween colorTween;
   CurvedAnimation curvedAnimation;
@@ -217,7 +224,7 @@ class _MemorizationState extends State<Memorization>
                       height: 350.0,
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: 6, //スライドの枚数に合わせる数字
+                        itemCount: 10, //スライドの枚数に合わせる数字
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, position) {
@@ -255,7 +262,8 @@ class _MemorizationState extends State<Memorization>
                                               child: Text(
                                                 "${memorizationBrain.cardsList[position].tasksRemaining} ",
                                                 style: TextStyle(
-                                                    color: Colors.white70),
+                                                    color: Colors.white70,
+                                                    fontFamily: 'MPLUS'),
                                               ),
                                             ),
                                             Padding(
@@ -267,7 +275,8 @@ class _MemorizationState extends State<Memorization>
                                                 "${memorizationBrain.cardsList[position].cardTitle}",
                                                 style: TextStyle(
                                                     fontSize: 28.0,
-                                                    color: Colors.white),
+                                                    color: Colors.white,
+                                                    fontFamily: 'MPLUS'),
                                               ),
                                             ),
                                           ],
